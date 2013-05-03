@@ -16,32 +16,6 @@ static gsl_function mkderivCB(void *data) {
 	return gf;
 }
 
-//static int dcentral(double x, double h,void *data, double *y, double *err) {
-//	gsl_function gf;
-//	gf.function = derivCB;
-//	gf.params = data;
-//
-//	return gsl_deriv_central(&gf, x, h, y, err);
-//}
-//
-//static int dforward(double x, double h,void *data, double *y, double *err) {
-//	gsl_function gf;
-//	gf.function = derivCB;
-//	gf.params = data;
-//
-//	return gsl_deriv_forward(&gf, x, h, y, err);
-//}
-//
-//static int dbackward(double x, double h,void *data, double *y, double *err) {
-//	gsl_function gf;
-//	gf.function = derivCB;
-//	gf.params = data;
-//
-//	return gsl_deriv_backward(&gf, x, h, y, err);
-//}
-
-
-
 */
 import "C"
 
