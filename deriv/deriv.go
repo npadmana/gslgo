@@ -40,7 +40,7 @@ const (
 )
 
 // Diff computes the derivative of ff, returns derivative and an error
-func Diff(dir DerivType, ff gslgo.F, x, h float64) (float64, float64, error) {
+func Diff(dir DerivType, ff gslgo.F, x, h float64) (gslgo.Result, error) {
 	var y, err C.double
 	var ret C.int
 	var gf C.gsl_function
@@ -58,7 +58,7 @@ func Diff(dir DerivType, ff gslgo.F, x, h float64) (float64, float64, error) {
 		panic(errors.New("Unknown direction"))
 	}
 	if ret != 0 {
-		return float64(y), float64(err), gslgo.Errno(ret)
+		return gslgo.Result{float64(y), float64(err)}, gslgo.Errno(ret)
 	}
-	return float64(y), float64(err), nil
+	return gslgo.Result{float64(y), float64(err)}, nil
 }

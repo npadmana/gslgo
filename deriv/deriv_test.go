@@ -1,6 +1,7 @@
 package deriv
 
 import (
+	"github.com/npadmana/gslgo"
 	"math"
 	"testing"
 )
@@ -18,37 +19,37 @@ func (q *Quad) Deriv(x float64) float64 {
 }
 
 func TestDeriv1(t *testing.T) {
-	var x, dd, dderr float64
 	var err error
+	var res gslgo.Result
 	q1 := Quad{1, 0, 0}
 	ff := func(x float64) float64 { return q1.Eval(x) }
-	x = 2.5
+	x := 2.5
 
 	// Central
-	dd, dderr, err = Diff(Central, ff, x, 0.001)
+	res, err = Diff(Central, ff, x, 0.001)
 	if err != nil {
 		t.Error("Unexpected error")
 	}
-	if math.Abs(dd-q1.Deriv(x)) > 1.e-5 {
-		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, q1.Deriv(x), dd, dderr)
+	if math.Abs(res.Res-q1.Deriv(x)) > 1.e-5 {
+		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, q1.Deriv(x), res.Res, res.Err)
 	}
 
 	// Forward 
-	dd, dderr, err = Diff(Forward, ff, x, 0.001)
+	res, err = Diff(Forward, ff, x, 0.001)
 	if err != nil {
 		t.Error("Unexpected error")
 	}
-	if math.Abs(dd-q1.Deriv(x)) > 1.e-5 {
-		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, q1.Deriv(x), dd, dderr)
+	if math.Abs(res.Res-q1.Deriv(x)) > 1.e-5 {
+		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, q1.Deriv(x), res.Res, res.Err)
 	}
 
 	// Reverse
-	dd, dderr, err = Diff(Backward, ff, x, 0.001)
+	res, err = Diff(Backward, ff, x, 0.001)
 	if err != nil {
 		t.Error("Unexpected error")
 	}
-	if math.Abs(dd-q1.Deriv(x)) > 1.e-5 {
-		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, q1.Deriv(x), dd, dderr)
+	if math.Abs(res.Res-q1.Deriv(x)) > 1.e-5 {
+		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, q1.Deriv(x), res.Res, res.Err)
 	}
 
 }
@@ -57,7 +58,7 @@ func TestDeriv2(t *testing.T) {
 	x := 1.0
 	h := 0.001
 	y := math.Cos(x)
-	dd, dderr, err := Diff(Central,
+	res, err := Diff(Central,
 		func(x float64) float64 { return math.Sin(x) },
 		x, h)
 
@@ -65,7 +66,7 @@ func TestDeriv2(t *testing.T) {
 		t.Error("Unexpected error")
 	}
 
-	if math.Abs(y-dd) > 1.e-5 {
-		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, y, dd, dderr)
+	if math.Abs(y-res.Res) > 1.e-5 {
+		t.Errorf("Derivative failed : x=%f, expected=%f, actual=%f, error=%f", x, y, res.Res, res.Err)
 	}
 }

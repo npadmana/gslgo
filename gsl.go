@@ -101,3 +101,13 @@ type F func(float64) float64
 type GSLFuncWrapper struct {
 	Gofunc F
 }
+
+// Eps packages the tolerances
+type Eps struct {
+	Abs, Rel float64
+}
+
+// Result packages the results
+type Result struct {
+	Res, Err float64
+}
