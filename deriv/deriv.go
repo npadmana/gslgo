@@ -1,5 +1,4 @@
-// Package deriv wraps the numerical differentiation routines. All these routines
-// will panic if a non-zero error is returned, and will pass the error up the chain.
+// Package deriv wraps the numerical differentiation routines. 
 package deriv
 
 /* 
