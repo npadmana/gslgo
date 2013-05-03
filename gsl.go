@@ -111,3 +111,8 @@ type Eps struct {
 type Result struct {
 	Res, Err float64
 }
+
+// Interval packages an Interval
+type Interval struct {
+	Lo, Hi float64
+}
