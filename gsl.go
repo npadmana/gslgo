@@ -4,6 +4,7 @@ package gslgo
 
 import (
 	"fmt"
+	"math"
 )
 
 type Errno int
@@ -116,3 +117,9 @@ type Result struct {
 type Interval struct {
 	Lo, Hi float64
 }
+
+// Define infinities
+var (
+	Inf  = math.Inf(1)
+	NInf = math.Inf(-1)
+)
